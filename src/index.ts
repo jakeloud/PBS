@@ -7,11 +7,10 @@ const server = serve({
     "/*": index,
 
     "/api/*": async (req) => {
-      const url = new URL(req.url)
-      url.port = 8000
-      const resp = await fetch(req)
-      console.log(resp)
-      return resp
+      const incomingUrl = new URL(req.url);
+      const backendUrl = new URL(`${incomingUrl.pathname}${incomingUrl.search}`, "http://localhost:8000");
+
+      return fetch(new Request(backendUrl, req));
     }
   },
 

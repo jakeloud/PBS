@@ -6,16 +6,21 @@ import "./index.css";
 import logo from "./logo.svg";
 
 export function App() {
-        const sayHello = async () => {
-                try {
-                        const res = await fetch("/api/hello")
-                        const j = await res.json()
-                        toast.add({title: j.message})
-                } catch(e) {
-                        toast.add({title: e.message, type: "error"})
-                }
-        }
+  const sayHello = async () => {
+    try {
+      const response = await fetch("/api/hello");
 
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      const data = (await response.json()) as { message: string };
+      toast.add({ title: data.message, type: "success" });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unable to reach the backend";
+      toast.add({ title: message, type: "error" });
+    }
+  };
 
   return (
     <div className="container mx-auto p-8 text-center relative z-10">
@@ -35,7 +40,7 @@ export function App() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-                <Button onClick={sayHello}>Say Hello</Button>
+          <Button onClick={sayHello}>Say Hello</Button>
         </CardContent>
       </Card>
       <Toaster />
