@@ -1,15 +1,11 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 
 app = FastAPI()
 
-api = APIRouter(prefix="/api")
 
-
-@api.get("/hello")
+@app.get("/api/hello")
 def hello():
     return {"message": "Hello, world!"}
 
 
-app.include_router(api)
-
-app.frontend("/", directory="dist", fallback="index.html")
+app.frontend("/", directory="dist")

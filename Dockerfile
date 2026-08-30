@@ -24,9 +24,7 @@ RUN bun run build
 
 FROM ghcr.io/astral-sh/uv:alpine as py
 WORKDIR /app
-RUN mkdir db
 COPY . .
-COPY --from=prerelease /temp/prod/dist dist
+COPY --from=prerelease /usr/src/app/dist dist
 RUN uv sync --locked
-ENV PORT=80
-CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "$PORT"]
+CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]

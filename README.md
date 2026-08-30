@@ -1,21 +1,49 @@
-# bun-react-tailwind-shadcn-template
+# PBS
 
-To install dependencies:
+FastAPI backend with a Bun, React, Tailwind, and shadcn frontend.
+
+## Setup
 
 ```bash
 bun install
+uv sync
 ```
 
-To start a development server:
+## Development
+
+Start the backend on port 8000:
+
+```bash
+uv run uvicorn main:app --reload --port 8000
+```
+
+Start the Bun development server on port 3000 in another terminal:
 
 ```bash
 bun dev
 ```
 
-To run for production:
+The browser calls `/api/*` on port 3000. Bun proxies those requests to FastAPI on port 8000.
+
+## Checks
 
 ```bash
-bun start
+bun run lint
+bun run build
 ```
 
-This project was created using `bun init` in bun v1.3.8. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+## Production
+
+Build the frontend, then run FastAPI. FastAPI serves both `/api/*` and the built `dist/` frontend.
+
+```bash
+bun run build
+uv run uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+Build and run the production container with:
+
+```bash
+docker build -t pbs .
+docker run --rm -p 8000:80 pbs
+```

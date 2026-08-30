@@ -9,12 +9,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 
-const elem = document.getElementById("root");
-
-if (elem === null) {
-  throw new Error("Root element not found");
-}
-
+const elem = document.getElementById("root")!;
 const app = (
   <StrictMode>
     <App />

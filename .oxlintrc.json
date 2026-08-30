@@ -39,5 +39,27 @@
   "ignorePatterns": ["dist/**"],
   "options": {
     "maxWarnings": 0
-  }
+  },
+  "overrides": [
+    {
+      "files": ["build.ts"],
+      "rules": {
+        "curly": "off",
+        "typescript/no-explicit-any": "off",
+        "unicorn/prefer-node-protocol": "off"
+      }
+    },
+    {
+      "files": ["src/frontend.tsx"],
+      "rules": {
+        "typescript/no-non-null-assertion": "off"
+      }
+    },
+    {
+      "files": ["src/App.tsx"],
+      "rules": {
+        "unicorn/consistent-function-scoping": "off"
+      }
+    }
+  ]
 }

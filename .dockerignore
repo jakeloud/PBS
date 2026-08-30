@@ -1,2 +1,5 @@
 dist
-db
+.git
+.venv
+node_modules
+__pycache__
